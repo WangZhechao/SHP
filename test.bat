@@ -1,0 +1,1 @@
+istanbul cover %APPDATA%/npm/node_modules/mocha/bin/_mocha -- --recursive test/
