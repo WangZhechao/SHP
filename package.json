@@ -6,7 +6,9 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "bluebird": "^3.0.1"
+  },
   "devDependencies": {
     "should": "^8.0.2"
   },
