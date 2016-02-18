@@ -1,12 +1,8 @@
-var express,
-	shp,
-	parentApp,
-	errors;
+var express = require('express'),
+	shp = require('./lib'),
+	errors = require('./lib/errors'),
+	parentApp = express();
 
-express = require('express');
-shp = require('./lib');
-errors = require('./lib/errors');
-parentApp = express();
 
 //启动服务
 shp().then(function(shpServer) {
