@@ -6,7 +6,10 @@
 module.exports = {
 	server: {
 	    host: '127.0.0.1',
-	    port: '2368'
+	    port: '2368',
+
+	    compress: true,
+	    proxy: false
 	},
 
 	database: {
@@ -19,5 +22,8 @@ module.exports = {
 	        charset  : 'utf8'
 	    },
 	    debug: false
-	}
+	},
+
+
+	logging: true
 };
