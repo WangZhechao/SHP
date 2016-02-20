@@ -12,6 +12,7 @@
     "chalk": "^1.1.1",
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.1",
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "lodash": "^4.5.0",
     "logging": "^2.0.21",

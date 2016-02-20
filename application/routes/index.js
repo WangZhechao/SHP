@@ -1,5 +1,5 @@
 var apiRoutes = {
-	'get /': null
+	'get /': {view: C.home.browse}
 };
 
 module.exports = apiRoutes;
