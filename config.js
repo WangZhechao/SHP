@@ -24,6 +24,10 @@ module.exports = {
 	    debug: false
 	},
 
+	cookie: {
+		secret: 'plus',
+		key: 'plus-cookie'
+	},
 
 	logging: true
 };
