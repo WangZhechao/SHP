@@ -1,11 +1,26 @@
 var Promise = require('bluebird'),
-    errors = require('../../lib/errors');
+    errors = require('../../lib/errors'),
+    utils = require('../../lib/utils');
 
 
 var HomeController = Class.define('HomeController', {
 	extend: 'BaseController',
 
 	browse: function() {
+
+
+		// var test = [{
+		//     value: 4,
+		//     name: '测试A',
+		//     valids: ['int']
+		// },{
+		//     value: 2,
+		//     name: '测试B',
+		//     valids: ['required', 'range'],
+		//     range_args: [0, 3]
+		// }];
+
+		// return utils.validate(test);
 
 		return M.home.browse();
 
