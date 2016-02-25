@@ -19,6 +19,7 @@
     "logging": "^2.0.21",
     "morgan": "^1.6.1",
     "mysql": "^2.10.2",
+    "node-uuid": "^1.4.7",
     "unidecode": "^0.1.8"
   },
   "devDependencies": {
