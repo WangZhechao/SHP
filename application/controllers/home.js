@@ -3,8 +3,8 @@ var Promise = require('bluebird'),
     utils = require('../../lib/utils');
 
 
-var HomeController = Class.define('HomeController', {
-	extend: 'BaseController',
+
+module.exports = {
 
 	browse: function() {
 
@@ -28,7 +28,6 @@ var HomeController = Class.define('HomeController', {
 		// 	view: 'home.ejs',
 		// 	locals: {title: 'SHP测试主页！'}
 		// });
-	}
-});
+	}	
 
-module.exports = new HomeController();
+};
