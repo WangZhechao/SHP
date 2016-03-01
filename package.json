@@ -17,10 +17,13 @@
     "express-session": "^1.13.0",
     "lodash": "^4.5.0",
     "logging": "^2.0.21",
+    "moment": "^2.11.2",
     "morgan": "^1.6.1",
     "mysql": "^2.10.2",
     "node-uuid": "^1.4.7",
-    "unidecode": "^0.1.8"
+    "serve-favicon": "^2.3.0",
+    "unidecode": "^0.1.8",
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "should": "^8.0.2"
