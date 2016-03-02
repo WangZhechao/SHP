@@ -1,6 +1,7 @@
 var Promise = require('bluebird'),
 	fs = Promise.promisifyAll(require("fs")),
 	path = require('path'),
+	chalk = require('chalk'),
 	spawn = require("child_process").spawn,
 	isWindow = (process.platform === 'win32'),
 	config = require(path.resolve(__dirname, '../lib/config')),
@@ -24,22 +25,6 @@ function startProgram() {
 
 		startProgram();
 	});
-
-	try {
-	  // Pass kill signals through to child
-	  [ "SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT" ].forEach( function(signal) {
-	    process.on(signal, function () {
-	      if (childProcess) {
-	        childProcess.kill(signal);
-	      }
-
-	      process.exit();
-	    });
-	  });
-	} catch(e) {
-	  // Windows doesn't support signals yet, so they simply don't get this handling.
-	  // https://github.com/joyent/node/issues/1553
-	}
 
 	console.log('主进程：' + process.pid, '子进程：' + childProcess.pid);
 }
@@ -127,6 +112,22 @@ function run(args) {
 			watchFile(item, pollInterval);
 		});
 	});	
+
+	try {
+	  // Pass kill signals through to child
+	  [ "SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT" ].forEach( function(signal) {
+	    process.on(signal, function () {
+	      if (childProcess) {
+	        childProcess.kill(signal);
+	      }
+
+	      process.exit();
+	    });
+	  });
+	} catch(e) {
+	  // Windows doesn't support signals yet, so they simply don't get this handling.
+	  // https://github.com/joyent/node/issues/1553
+	}
 
 	startProgram();
 }
