@@ -1,42 +1,51 @@
-var http = require('http'),
-	fs = require('fs');
+var request = require('request'),
+	fs = require('fs'),
+	sparkMD5 = require('./spark-md5.js'),
+	AdmZip = require('adm-zip');
 
 
-module.exports = function download(options, path) {
-	options = {
-		host: '127.0.0.1',
-		port: 8081,
-		path: '/plus_plantform.rar',
-		method: 'GET'
-	};
+function download(url, cb) {
+	var fileName = url.slice(url.lastIndexOf('/') + 1),
+		fileStream = fs.createWriteStream(fileName);
 
-	var ws = fs.createWriteStream(path),
-		clientReq = http.request(options, function(res) {
-			console.log('download: ', res.statusCode);
-			
-			res.on('data', function(chunk) {
-				ws.write(chunk);
-			});
+	request
+		.get(url, function(err) {
+			return cb && cb(err);
+		})
+		.pipe(fileStream);
+}
 
-			res.on('end', function() {
-			  console.log('No more data in response.');
-			  ws.end();
-			});
-		});
 
-	ws.on('drain', function() {
-		console.log('drain');
-	});
+function md5(file) {
+	var hexHash,
+		data = fs.readFileSync(file, 'binary'),
+		spark = new sparkMD5();
 
-	ws.on('error', function(e) {
-		console.log(e.message);
-	});
+	spark.appendBinary(data);
+	hexHash = spark.end();
 
-	clientReq.on('error', function(e)  {
-	  console.log('problem with request: ', e.message);
-	});
+	return hexHash;
+}
 
-	clientReq.end();
-};
 
-module.exports(null, './plus_plantform.rar');
+function extract(file, targetPath, overWrite) {
+	var zip;
+
+	try {
+		zip = new AdmZip(file);
+
+		if(zip) {
+			zip.extractAllTo(targetPath, overWrite);
+		}
+
+		return true;
+	} catch (e) {
+		return false;
+	}
+}
+
+
+// download('http://127.0.0.1:8081/plus_plantform.rar', function(err) {
+// 	console.log('=', err);
+// });
+//extract('./thinkjs-master', './test', true);
