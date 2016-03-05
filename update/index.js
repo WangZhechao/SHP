@@ -10,7 +10,7 @@ function download(url, cb) {
 
 	request
 		.get(url, function(err) {
-			return cb && cb(err);
+			return cb && cb(err, fileName);
 		})
 		.pipe(fileStream);
 }
@@ -45,7 +45,36 @@ function extract(file, targetPath, overWrite) {
 }
 
 
-// download('http://127.0.0.1:8081/plus_plantform.rar', function(err) {
-// 	console.log('=', err);
+module.exports = function(opts, cb) {
+	var url = opts.url || '',
+		checkMD5 = opts.md5 || '',
+		targetPath = opts.path || '',
+		filePath;
+
+	download(url, function(err, fileName) {
+		if(err) {
+			return cb && cb(err);
+		}
+
+		filePath = './' + fileName;
+		if(fileName && checkMD5 === md5(filePath)) {
+			res = extract(filePath, targetPath, true);
+			if(!res) {
+				return cb && cb(new Error('extract file error.'));
+			}
+
+			return cb && cb(null);
+		} else {
+			return cb && cb(new Error('md5 check error.'));
+		}
+	});
+};
+
+
+// module.exports({
+// 	url: 'http://127.0.0.1:8081/thinkjs-master.zip',
+// 	md5: '07312fb8769d3d38bdf5d374dcaffc5c',
+// 	path: 'E:\\Projects\\SHP\\update'
+// }, function(err) {
+// 	console.log(err);
 // });
-//extract('./thinkjs-master', './test', true);
