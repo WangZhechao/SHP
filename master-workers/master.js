@@ -1,36 +1,37 @@
-// var fork = require('child_process').fork;
-// var cpus = require('os').cpus();
-
-// for (var i=0; i<cpus.length; i++) {
-// 	var worker = fork('./worker.js');
-
-// 	worker.on('message', function(m) {
-// 		console.log('主：', m);
-// 	});
-
-// 	worker.send('主发送。。。');
-// }
-
-
-// var worker = require('child_process').fork('worker.js');
-// var server = require('net').createServer();
-// server.on('connection', function(socket) {
-// 	console.log('====');
-// 	socket.end('handled by parent\n');
-// });
-
-// server.listen(1337, function() {
-// 	worker.send('server', server);
-// });
-
-var cp = require('child_process');
-var worker1 = cp.fork('worker.js');
-var worker2 = cp.fork('worker.js');
+var fork = require('child_process').fork;
+var cpus = require('os').cpus();
 
 var server = require('net').createServer();
-server.listen(1337, function() {
-	worker1.send('server', server);
-	worker2.send('server', server);
+server.listen(3000);
 
-	server.close();
+var workers = {};
+
+var createWorker = function() {
+	var worker = fork(__dirname + '/worker.js');
+
+	worker.on('message', function(message) {
+		if(message.act === 'suicide') {
+			createWorker();
+		}
+	});
+
+	worker.on('exit', function(code) {
+		console.log('worker ' + worker.pid + ' exited.' + code);
+		delete workers[worker.pid];
+	});
+
+	worker.send('server', server);
+	worker[worker.pid] = worker;
+	console.log('worker pid ' + worker.pid);
+};
+
+
+for(var i=0; i<cpus.length; i++) {
+	createWorker();
+}
+
+process.on('exit', function() {
+	for(var pid in workers) {
+		workers[pid].kill();
+	}
 });

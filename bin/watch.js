@@ -133,7 +133,7 @@ function run(args) {
 
 	try {
 	  // Pass kill signals through to child
-	  [ "SIGTERM", "SIGINT", "SIGHUP", "SIGQUIT" ].forEach( function(signal) {
+	  [ 'SIGTERM', 'SIGINT', 'SIGHUP', 'SIGQUIT' ].forEach( function(signal) {
 	    process.on(signal, function () {
 	      if (childProcess) {
 	        childProcess.kill(signal);
