@@ -6,7 +6,7 @@
 module.exports = {
 	server: {
 	    host: '127.0.0.1',
-	    port: '2368',
+	    port: '3000',
 
 	    compress: true,
 	    proxy: false
