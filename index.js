@@ -1,13 +1,7 @@
-var express = require('express'),
-	shp = require('./lib'),
-	errors = require('./lib/errors'),
-	parentApp = express();
+var _ = require('lodash');
 
-
-//启动服务
-shp().then(function(shpServer) {
-	parentApp.use('/', shpServer.rootApp);
-	shpServer.start(parentApp);
-}).catch(function(err) {
-	errors.logErrorAndExit(err, err.context, err.help);
-});
+if(_.find(process.argv.splice(2)) === '-m') {
+	require('./lib/master.js');
+} else {
+	require('./lib/worker.js');
+}
