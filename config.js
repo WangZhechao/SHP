@@ -29,5 +29,11 @@ module.exports = {
 		key: 'plus-cookie'
 	},
 
+	app: {
+		update: 'http://127.0.0.1:3000/',
+		md5: '12345636456567',
+		version: '0.0.1'
+	},
+
 	logging: true
 };
