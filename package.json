@@ -23,6 +23,7 @@
     "mysql": "^2.10.2",
     "node-uuid": "^1.4.7",
     "request": "^2.69.0",
+    "semver": "^5.1.0",
     "serve-favicon": "^2.3.0",
     "unidecode": "^0.1.8",
     "winston": "^2.2.0"

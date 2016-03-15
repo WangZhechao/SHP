@@ -30,8 +30,8 @@ module.exports = {
 	},
 
 	app: {
-		update: 'http://127.0.0.1:3000/',
-		md5: '12345636456567',
+		update: 'http://127.0.0.1:8081/update.json',
+		md5: '07312fb8769d3d38bdf5d374dcaffc5c',
 		version: '0.0.1'
 	},
 
