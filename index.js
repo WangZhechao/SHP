@@ -5,3 +5,4 @@ if(_.find(process.argv.splice(2)) === '-m') {
 } else {
 	require('./lib/worker.js');
 }
+
