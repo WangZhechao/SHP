@@ -29,10 +29,11 @@ module.exports = {
 		key: 'plus-cookie'
 	},
 
-	app: {
-		update: 'http://127.0.0.1:8081/update.json',
-		md5: '07312fb8769d3d38bdf5d374dcaffc5c',
-		version: '0.0.1'
+	updateCheck: true,
+	update: {
+		url: 'http://127.0.0.1:8081/update.json',
+		version: '0.0.1',
+		checkTime: 60 * 1000
 	},
 
 	logging: true
