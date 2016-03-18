@@ -29,6 +29,8 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0",
     "should": "^8.0.2"
   },
   "scripts": {
