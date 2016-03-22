@@ -4,10 +4,7 @@ var mocha = require('gulp-mocha');
 gulp.task('default', function() {
 	return gulp.src(['test/**'], { read: false, nodir: true })
 	  .pipe(mocha({
-	    reporter: 'spec',
-	    globals: {
-	      should: require('should')
-	    }
+	    reporter: 'spec'
 	  }));
 });
 
