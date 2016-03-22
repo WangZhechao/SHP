@@ -49,7 +49,7 @@ function crash() {
 
 
 function crashWin(event, fileName) {
-	if((event === 'rename' || event === 'change') && 
+	if((event === 'rename' || event === 'change') && fileName &&
 		fileName.match(fileExtensionPattern)) {
 		crash();
 	}
