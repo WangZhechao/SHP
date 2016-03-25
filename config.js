@@ -9,7 +9,8 @@ module.exports = {
 	    port: '3000',
 
 	    compress: true,
-	    proxy: false
+	    proxy: false,
+	    memoryStore: false
 	},
 
 	database: {
