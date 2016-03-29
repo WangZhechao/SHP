@@ -1,14 +1,11 @@
-var gulp = require('gulp');
-var mocha = require('gulp-mocha');
-var jshint = require('gulp-jshint');
-var uglify = require('gulp-uglify');
-var merge = require('merge-stream');
-var obfuscate = require('gulp-obfuscate');
-
-gulp.task('default', function() {
-
-});
-
+var gulp = require('gulp'),
+	mocha = require('gulp-mocha'),
+	jshint = require('gulp-jshint'),
+	uglify = require('gulp-uglify'),
+	merge = require('merge-stream'),
+	obfuscate = require('gulp-obfuscate'),
+	zip = require('gulp-zip'),
+	gulpSequence = require('gulp-sequence');
 
 gulp.task('test', function() {
 	return gulp.src(['test/**'], { read: false, nodir: true })
@@ -45,6 +42,29 @@ gulp.task('obfuscate', function() {
 	return gulp.src('./dist/**/*.js')
 	    .pipe(obfuscate({ replaceMethod: obfuscate.ZALGO }));
 });
+
+
+gulp.task('copy', function() {
+	return gulp.src(['./lib/**/*', './application/**/*', './index.js', './config.js', './package.json'], {base: '.'})
+		.pipe(gulp.dest('dist'));
+});
+
+
+gulp.task('copy_npm', function() {
+	return gulp.src(['./node_modules/**/*'], {base: '.'})
+		.pipe(gulp.dest('dist'));
+});
+
+
+gulp.task('zip', function() {
+	return gulp.src('./dist/**/*')
+		.pipe(zip('archive.zip'))
+		.pipe(gulp.dest('build'));
+});
+
+
+gulp.task('default', gulpSequence('test', 'lint', 'copy', 'compress', 'obfuscate', 'copy_npm', 'zip'));
+ 
 
 //测试
 
